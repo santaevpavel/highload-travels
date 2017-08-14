@@ -1,15 +1,17 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace highload_travels.Models
 {
-	public class User{
+	public class User : Entity{
 
-		public int Id { get; set; }
-
+		[StringLength(100)]
 		public string Email { get; set; }
 
+		[StringLength(50)]
 		public string FirstName { get; set; }
 
+		[StringLength(50)]
 		public string LastName { get; set; }
 
 		public string Gender { get; set; }

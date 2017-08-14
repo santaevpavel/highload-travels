@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using highload_travels.Models;
 using System.Collections.Concurrent;
 using System.Net;
@@ -12,72 +13,23 @@ namespace highload_travels.Controllers
 {     
 
     [Route("[controller]")]
-    public class LocationsController : Controller
+    public class LocationsController : BaseController<Location>
     {
-        private readonly TravelsContext context;
 
-        public LocationsController(TravelsContext context)
+        public LocationsController(TravelsContext context) : base (context)
         {
-            this.context = context;
         }  
 
-        [HttpGet]
-        public IEnumerable<Location> Get()
-        {
-            var locations = this.context.Locations.ToList();
-            return locations;
+        public override DbSet<Location> getDbSet(){
+            return context.Locations;
         }
 
-        [HttpGet("{id}", Name = "GetLocation")]
-        public IActionResult Get(int id)
-        {
-            var item = this.context.Locations.FirstOrDefault(t => t.Id == id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-            return new ObjectResult(item);
+        public override void update(Location source, Location target){
+            target.Place = source.Place;
+            target.Country = source.Country;
+            target.City = source.City;
+            target.Distance = source.Distance;
         }
 
-        [HttpPost]
-        public IActionResult Update([FromBody] Location item)
-        {
-            if (item == null || !ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            var location = this.context.Locations.FirstOrDefault(t => t.Id == item.Id);
-
-            if (location == null)
-            {
-                return NotFound();
-            }
-
-            location.Place = item.Place;
-            location.City = item.City;
-            location.Country = item.Country;
-            location.Distance = item.Distance;
-
-            this.context.Locations.Update(location);
-            this.context.SaveChanges();
-            return new OkResult();
-        }
-
-        [HttpPost]
-        [Route("new")]
-        public IActionResult Create([FromBody] Location item)
-        {
-            if (item == null || !ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            this.context.Locations.Add(item);
-            this.context.SaveChanges();
-
-            return new OkResult();
-        }
     }
 }

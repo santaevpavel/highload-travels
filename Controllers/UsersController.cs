@@ -3,40 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using highload_travels.Models;
 
 namespace highload_travels.Controllers
 {
     [Route("[controller]")]
-    public class UsersController : Controller
+    public class UsersController : BaseController<User>
     {
-        // GET users
-        [HttpGet]
-        public IEnumerable<User> Get()
-        {
-            return new User[] { new User(), new User() };
+        public UsersController(TravelsContext context) : base(context)
+        {       
+        }  
+
+        public override DbSet<User> getDbSet(){
+            return context.Users;
         }
 
-        // GET users/{id}
-        [HttpGet("{id}")]
-        public User Get(int id)
-        {
-            return new User();
-        }
-
-        // POST users/{id}
-        [HttpPost("{id}")]
-        public User Post([FromBody]User user, int id)
-        {
-            user.Id = id;
-            return user;
-        }
-
-        // POST users/new
-        [HttpPost("new")]
-        public User PostNew([FromBody]User user)
-        {
-            return user;
+        public override void update(User source, User target){
+            target.Email = source.Email;
+            target.FirstName = source.FirstName;
+            target.LastName = source.LastName;
+            target.Gender = source.Gender;
+            target.BirthDate = source.BirthDate;
         }
     }
 }

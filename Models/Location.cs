@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace highload_travels.Models
 {
-    public class Location
+    public class Location : Entity
     {
-        public int Id { get; set; }
-
         public string Place { get; set; }
 
         [StringLength(50)]

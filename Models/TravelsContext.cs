@@ -11,5 +11,7 @@ namespace highload_travels.Models
         }
 
         public DbSet<Location> Locations { get; set; }
+
+        public DbSet<User> Users { get; set; }
     }
 }
