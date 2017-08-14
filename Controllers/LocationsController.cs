@@ -11,7 +11,6 @@ using System.Net.Http;
 
 namespace highload_travels.Controllers
 {     
-
     [Route("[controller]")]
     public class LocationsController : BaseController<Location>
     {

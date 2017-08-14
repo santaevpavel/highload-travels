@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace highload_travels.Models
@@ -17,5 +18,7 @@ namespace highload_travels.Models
 		public string Gender { get; set; }
 
 		public long BirthDate { get; set; }
+
+		public List<Visit> Visits { get; set; }
 	}
 }

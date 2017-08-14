@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace highload_travels.Models
@@ -13,6 +14,8 @@ namespace highload_travels.Models
         [StringLength(50)]
         public string City { get; set; }    
     
-        public int Distance { get; set; }    
+        public int Distance { get; set; }   
+
+        public List<Visit> Visits { get; set; } 
     }
 }
