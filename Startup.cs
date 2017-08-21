@@ -18,13 +18,17 @@ namespace highload_travels
         {
             services.AddDbContext<TravelsContext>(opt => opt.UseInMemoryDatabase());
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc(options => {
+                options.OutputFormatters.
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseMvc();
+            
+            loggerFactory.AddConsole().AddDebug();
         }
     }
 }

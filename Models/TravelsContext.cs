@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 
 namespace highload_travels.Models
@@ -18,15 +17,15 @@ namespace highload_travels.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Visit>()
-                .HasOne(p => p.User)
-                .WithMany(b => b.Visits)
-                .HasForeignKey(b => b.UserId);
-                
-            modelBuilder.Entity<Visit>()
-                .HasOne(p => p.Location)
-                .WithMany(b => b.Visits)
-                .HasForeignKey(b => b.LocationId);
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Visits)
+                .WithOne(v => v.User)
+                .HasForeignKey(v => v.UserId);
+
+            modelBuilder.Entity<Location>()
+                .HasMany(u => u.Visits)
+                .WithOne(v => v.Location)
+                .HasForeignKey(v => v.LocationId);
         }
     }
 }

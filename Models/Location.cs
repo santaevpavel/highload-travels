@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 
 namespace highload_travels.Models
 {
@@ -16,6 +17,19 @@ namespace highload_travels.Models
     
         public int Distance { get; set; }   
 
-        public List<Visit> Visits { get; set; } 
+        public ICollection<Visit> Visits { get; set; } 
+        
+		public override string ToString()
+		{
+			var builder = new StringBuilder();
+
+			builder.Append("Id=").Append(this.Id).Append("; ");
+			builder.Append("Place=").Append(this.Place).Append("; ");
+			builder.Append("Country=").Append(this.Country).Append("; ");
+			builder.Append("City=").Append(this.City).Append("; ");
+			builder.Append("Distance=").Append(this.Distance).Append("; ");
+
+			return builder.ToString();
+		}
     }
 }

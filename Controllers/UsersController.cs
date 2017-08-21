@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using highload_travels.Models;
 
 namespace highload_travels.Controllers
@@ -11,7 +8,7 @@ namespace highload_travels.Controllers
     [Route("[controller]")]
     public class UsersController : BaseController<User>
     {
-        public UsersController(TravelsContext context) : base(context)
+        public UsersController(ILoggerFactory logger, TravelsContext context) : base(logger, context)
         {       
         }  
 
